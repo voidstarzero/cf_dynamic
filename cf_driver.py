@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import os
 import requests
 
@@ -30,24 +28,26 @@ def get_zone_details(token, zone_id):
     endpoint = "/zones/{}".format(zone_id)
 
     response = cf_get(token, endpoint)
-    print(response.text)
+    result = response.json()["result"]
+    return result
 
 def get_dns_record_id(token, zone_id, dns_record_name):
     endpoint = "/zones/{}/dns_records".format(zone_id)
     query = {"name": dns_record_name}
 
     response = cf_get(token, endpoint, query)
-    print(response.text)
+    result = response.json()["result"]
+    return result[0]["id"]
 
 def get_dns_record_details(token, zone_id, dns_record_id):
     endpoint = "/zones/{}/dns_records/{}".format(zone_id, dns_record_id)
 
     response = cf_get(token, endpoint)
-    print(response.text)
+    result = response.json()["result"]
+    return result
 
 def patch_dns_record_address(token, zone_id, dns_record_id, address):
     endpoint = "/zones/{}/dns_records/{}".format(zone_id, dns_record_id)
     params = {"content": address}
 
     response = cf_patch(token, endpoint, params)
-    print(response.text)
