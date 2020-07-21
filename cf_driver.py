@@ -6,14 +6,14 @@ CF_BASEPATH = "https://api.cloudflare.com/client/v4"
 def cf_get(token, path, query=None):
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "bearer " + token
+        "Authorization": "Bearer " + token
     }
     return requests.get(CF_BASEPATH + path, params=query, headers=headers)
 
 def cf_patch(token, path, data):
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "bearer " + token
+        "Authorization": "Bearer " + token
     }
     return requests.patch(CF_BASEPATH + path, json=data, headers=headers)
 
